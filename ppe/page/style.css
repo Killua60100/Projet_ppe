@@ -1,0 +1,157 @@
+body {
+    transition: background-color 0.6s ease-in-out;
+    font-family: 'Open Sans', sans-serif;
+    overflow-x: hidden;
+  }
+  
+  .page {
+    display: none; /* Masquer toutes les pages par défaut */
+  }
+  
+  .page.fade-in {
+    display: block; /* Afficher uniquement la page active */
+    opacity: 1;
+    transition: opacity 0.5s ease-in;
+  }
+  
+  .page.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+  }
+  
+  header {
+    width: 100%;
+    background-color: white;
+    padding: 5px 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    height: 70px;
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    height: 70px;
+    max-width: 1200px;  
+    margin: 0 auto;  
+  }
+  
+  ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+  }
+  
+  button {
+    background-color: transparent;
+    color: black;
+    border: 2px solid transparent;
+    padding: 8px 15px;
+    font-size: 20px;
+    border-radius: 13px;
+    transition: background-color 0.4s ease;
+  }
+  
+  .no-hover {
+    pointer-events: none; 
+    background-color: transparent !important; 
+    transition: none !important; 
+  }
+  
+  .no-hover:hover {
+    background-color: transparent !important; 
+    color: inherit !important;
+  }
+
+
+  .bg-accueil { background-color: rgb(241, 216, 216); }
+  .bg-formation { background-color: rgb(200, 255, 200); }
+  .bg-projet { background-color: rgb(158, 208, 255); }
+  .bg-monCV { background-color: rgb(255, 255, 160); }
+  
+  .bg-accueil button:hover { background-color: #ff8888; }
+  .bg-formation button:hover { background-color: #50e050; }
+  .bg-projet button:hover { background-color: #7e7eff; }
+  .bg-monCV button:hover { background-color: #ffff88; }
+  
+  .projects-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+  }
+  
+  .project-card {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 0 10px;
+    flex: 1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .project-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .nav-links {
+    list-style-type: none; 
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links li {
+    display: inline;
+  }
+
+  #monCV {
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    flex-direction: column;  
+    height: 100vh;           
+    padding: 30px;           
+  }
+  
+  #monCV button {
+    background-color: blue;  
+    color: white;            
+    padding: 10px 20px;      
+    border: none;            
+    border-radius: 5px;     
+    font-size: 16px;         
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  #monCV button:hover {
+    background-color: #0056b3;
+  }
+
+  #monCV:not(.fade-in) {
+    display: none;
+  }
+
+  #users-list {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  #users-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  #users-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  #users-list li:last-child {
+    border-bottom: none;
+  }
