@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($mdp === "admin") {
         $_SESSION['is_admin'] = true; // ✅ Définit l'admin dans la session
-        $_SESSION['user_id'] = "admin"; // ✅ Optionnel : stocke un ID pour l'admin
+        $_SESSION['id'] = "admin"; // ✅ Optionnel : stocke un ID pour l'admin
         header("Location: ./admin.php");
         exit();
     }
@@ -24,8 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($user) {
         if ($mdp === $user['mdp']) { // Comparaison directe sans hash
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_name'] = $user['prenom'] . " " . $user['nom']; // Stocke Prénom + Nom
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['prenom'] = $user['prenom'] . " " . $user['nom']; // Stocke Prénom + Nom
             
             header("Location: index.php");
             exit();

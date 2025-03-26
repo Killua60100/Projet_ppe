@@ -6,17 +6,17 @@ session_start();
 include 'config.php';
 
 // Vérifiez si l'utilisateur est connecté
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['id'])) {
     header("Location: connection.php");
     exit();
 }
 
 // Vérifiez si le nom de l'utilisateur est défini
-$user_name = isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_name']) : "Utilisateur";
+$user_name = isset($_SESSION['id']) ? htmlspecialchars($_SESSION['id']) : "Utilisateur";
 
 ?>
 
-<h1>Bienvenue, <?php echo htmlspecialchars($_SESSION['user_name']); ?> !</h1>
+<h1>Bienvenue, <?php echo htmlspecialchars($_SESSION['prenom']); ?> !</h1>
 <a href="logout.php">Se déconnecter</a>
 
 
@@ -32,30 +32,7 @@ $user_name = isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_na
 
 <body class="bg-accueil">
 
-  <script>
-
-    function loadUsers() {
-      fetch('../requete/get_users.php')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('users-list').innerHTML = data;
-        });
-    }
-
-    window.onload = loadUsers;
-
-    function checkUrlForPage() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const page = urlParams.get('page');
-      if (page) {
-        handlePageChange(page);
-      }
-    }
-
-    window.onload = function() {
-      loadUsers();
-      checkUrlForPage();
-    };
+  <script  src="../code js/admin.js">>
   </script>
 
 </body>

@@ -6,12 +6,12 @@ session_start();
 include 'config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];
+    $name = $_POST['prenom'];
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    $query = $mysqlClient->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-    if ($query->execute([$name, $email, $password])) {
+    $query = $mysqlClient->prepare("INSERT INTO utilisateur (prenom, email, mdp) VALUES (?, ?, ?)");
+    if ($query->execute([$prenom, $email, $mdp])) {
         echo "Inscription réussie. <a href='login.php'>Connectez-vous</a>";
     } else {
         echo "Erreur lors de l'inscription.";
