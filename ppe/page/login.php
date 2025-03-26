@@ -3,12 +3,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 session_start();
 
-try {
-    $mysqlClient = new PDO('mysql:host=localhost;dbname=database_ppe;charset=utf8', 'root', 'root');
-    $mysqlClient->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (Exception $e) {
-    die('Erreur de connexion : ' . $e->getMessage());
-}
+include 'config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
@@ -19,17 +14,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query->execute([$email]);
     $user = $query->fetch(PDO::FETCH_ASSOC);
 
-    // Vérifier le mot de passe
-    if ($user && password_verify($mdp, $user['mdp'])) {
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['user_name'] = $user['prenom'] . " " . $user['nom']; // Stocke Prénom + Nom
-        header("Location: index.php");
+    if ($mdp === "admin") {
+        $_SESSION['is_admin'] = true; // ✅ Définit l'admin dans la session
+        $_SESSION['user_id'] = "admin"; // ✅ Optionnel : stocke un ID pour l'admin
+        header("Location: ./admin.php");
         exit();
+    }
+
+
+    if ($user) {
+        if ($mdp === $user['mdp']) { // Comparaison directe sans hash
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_name'] = $user['prenom'] . " " . $user['nom']; // Stocke Prénom + Nom
+            
+            header("Location: index.php");
+            exit();
+        } else {
+            $error_message = "Mot de passe incorrect.";
+        }
     } else {
-        $error_message = "Email ou mot de passe incorrect.";
+        $error_message = "Email non trouvé.";
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -37,21 +45,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
+    <link rel="stylesheet" href="style.css"> <!-- Le même fichier CSS utilisé pour tout -->
 </head>
-<body>
-    <h2>Connexion</h2>
+<body class="connexion-body">
+
+    <h2 class="connexion-title">Connexion</h2>
     
     <?php if (isset($error_message)) : ?>
-        <p style="color: red;"><?php echo $error_message; ?></p>
+        <p class="error-message"><?php echo $error_message; ?></p>
     <?php endif; ?>
 
-    <form method="post">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="mdp" placeholder="Mot de passe" required>
-        <button type="submit">Se connecter</button>
+    <form method="post" class="connexion-form">
+        <input type="email" name="email" placeholder="Email" required class="connexion-input">
+        <input type="password" name="mdp" placeholder="Mot de passe" required class="connexion-input">
+        <button type="submit" class="connexion-button">Se connecter</button>
     </form>
     
-    <a href="connection.php">Retour</a>
+    <a href="connection.php" class="back-link">Retour</a>
 </body>
 </html>
-

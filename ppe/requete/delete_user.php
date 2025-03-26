@@ -1,13 +1,7 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 
-try {
-    // Connexion à la base de données
-    $mysqlClient = new PDO('mysql:host=localhost;dbname=database_ppe;charset=utf8', 'root', 'root');
-    $mysqlClient->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (Exception $e) {
-    die('Erreur de connexion : ' . $e->getMessage());
-}
+include 'config.php';
 
 // Vérification de la présence de l'ID dans l'URL et si l'ID est valide
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {

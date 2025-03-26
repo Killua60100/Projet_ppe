@@ -1,14 +1,7 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 
-try {
-    // Connexion à la base de données
-    $mysqlClient = new PDO('mysql:host=localhost;dbname=database_ppe;charset=utf8', 'root', 'root');
-    $mysqlClient->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo 'Connexion réussie !';
-} catch (Exception $e) {
-    die('Erreur de connexion : ' . $e->getMessage());
-}
+include 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupération des données envoyées par le formulaire

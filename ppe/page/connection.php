@@ -62,7 +62,6 @@
         <h4>notre plaforme de musique 100% gratuite </h4>
         <a href="login.php" class="btn btn-blue">Se connecter</a>
         <a href="register.php" class="btn btn-green">S'inscrire</a>
-        <a href="admin.php" class="btn btn-orange">Administrateur</a>
     </div>
 </body>
 </html>

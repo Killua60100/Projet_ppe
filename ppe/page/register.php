@@ -3,15 +3,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 session_start();
 
-
-try {
-    $mysqlClient = new PDO('mysql:host=localhost;dbname=database_ppe;charset=utf8', 'root', 'root');
-    $mysqlClient->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo 'Connexion réussie !';
-  } catch (Exception $e) {
-    die('Erreur de connexion : ' . $e->getMessage());
-  }
-
+include 'config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
@@ -30,32 +22,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="fr">
 
-<form action="../requete/add_user.php" method="POST">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-<label for="nom">Nom :</label>
-<input type="text" id="nom" name="nom" required><br><br>
+<body class="inscription-body">
 
-<label for="prenom">Prénom :</label>
-<input type="text" id="prenom" name="prenom" required><br><br>
+    <h2 class="inscription-title">Créer un compte</h2>
+    
+    <form action="../requete/add_user.php" method="POST" class="inscription-form">
 
-<label for="age">Âge :</label>
-<input type="number" id="age" name="age" required><br><br>
+        <label for="nom" class="inscription-label">Nom :</label>
+        <input type="text" id="nom" name="nom" required class="inscription-input"><br><br>
 
-<label for="date_de_naissance" :>Date de naissance :</label>
-<input type="date" id="date_de_naissance" name="date_de_naissance" required><br><br>
+        <label for="prenom" class="inscription-label">Prénom :</label>
+        <input type="text" id="prenom" name="prenom" required class="inscription-input"><br><br>
 
-<label for="email">Email :</label>
-<input type="email" id="email" name="email" required><br><br>
+        <label for="age" class="inscription-label">Âge :</label>
+        <input type="number" id="age" name="age" required class="inscription-input"><br><br>
 
-<label for="numero">Numéro :</label>
-<input type="number" id="numero" name="numero" required><br><br>
+        <label for="date_de_naissance" class="inscription-label">Date de naissance :</label>
+        <input type="date" id="date_de_naissance" name="date_de_naissance" required class="inscription-input"><br><br>
 
-<label for="mdp">mot de passe :</label>
-<input type="text" id="mdp" name="mdp" required><br><br>
+        <label for="email" class="inscription-label">Email :</label>
+        <input type="email" id="email" name="email" required class="inscription-input"><br><br>
 
-<button type="submit">creer le compte</button>
-</form>
+        <label for="numero" class="inscription-label">Numéro :</label>
+        <input type="number" id="numero" name="numero" required class="inscription-input"><br><br>
 
-<a href="connection.php">Retour</a>
+        <label for="mdp" class="inscription-label">Mot de passe :</label>
+        <input type="text" id="mdp" name="mdp" required class="inscription-input"><br><br>
 
+        <button type="submit" class="inscription-button">Créer le compte</button>
+    </form>
+
+    <a href="connection.php" class="back-link">Retour</a>
+
+</body>
 </html>

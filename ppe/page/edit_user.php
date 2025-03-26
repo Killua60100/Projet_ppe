@@ -1,12 +1,7 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 
-try {
-    $mysqlClient = new PDO('mysql:host=localhost;dbname=personnes;charset=utf8', 'root', 'root');
-    $mysqlClient->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (Exception $e) {
-    die('Erreur de connexion : ' . $e->getMessage());
-}
+include 'config.php';
 
 if (isset($_GET['id'])) {
     $id = (int)$_GET['id'];

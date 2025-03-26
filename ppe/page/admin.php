@@ -1,12 +1,16 @@
 <?php
-header('Content-Type: text/html; charset=utf-8');
 
-try {
-  $mysqlClient = new PDO('mysql:host=localhost;dbname=database_ppe;charset=utf8', 'root', 'root');
-  $mysqlClient->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  echo 'Connexion réussie !';
-} catch (Exception $e) {
-  die('Erreur de connexion : ' . $e->getMessage());
+header('Content-Type: text/html; charset=utf-8');
+session_start();
+
+include 'config.php';
+
+$mdp = isset($_POST['mdp']) ? $_POST['mdp'] : null;
+
+if ($mdp === "admin") {
+  $_SESSION['is_admin'] = true; // On stocke qu'il est admin
+  header("Location: admin.php");
+  exit();
 }
 
 ?>
@@ -26,13 +30,29 @@ try {
   <header>
     <div class="header-container">
         <button style="font-size: 20px">espace administrateur</button>
+        <a href="logout.php">Se déconnecter</a>
     </div>
   </header>
 
   <div class="body">
 
+  <div class="project-card">
+          <h3>Liste de tous les utilisateurs</h3>
+          <div id="users-list">
+            <?php
+            $stmt = $mysqlClient->query("SELECT * FROM utilisateur");
+            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($users as $user) {
+                echo "<p>" . htmlspecialchars($user['nom']) . " " . htmlspecialchars($user['prenom']) . ", " . htmlspecialchars($user['age']) . " ans</p>";
+                echo '<a href="index.php?id=' . $user['id'] . '">Modifier</a>';
+                echo ' | <a href="delete_user.php?id=' . $user['id'] . '">Supprimer</a>';
+            }
+            ?>
+          </div>
+         </div>
+
         <div class="project-card">
-        <h3>Ajouter une personne</h3>
+        <h3>Ajouter un utilisateur </h3>
                 <form action="../requete/add_user.php" method="POST">
 
                     <label for="nom">Nom :</label>
@@ -56,26 +76,12 @@ try {
                     <label for="numero">mot de passe :</label>
                     <input type="text" id="mdp" name="mdp" required><br><br>
 
-                    <button type="submit">Ajouter la personne</button>
+                    <button type="submit">Ajouter l'utilisateur</button>
           </form>
         </div>
 
 
-        <div class="project-card">
-          <h3>Liste des personnes enregistrées</h3>
-          <div id="users-list">
-            <?php
-            $stmt = $mysqlClient->query("SELECT * FROM utilisateur");
-            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            foreach ($users as $user) {
-                echo "<p>" . htmlspecialchars($user['nom']) . " " . htmlspecialchars($user['prenom']) . ", " . htmlspecialchars($user['age']) . " ans</p>";
-                echo '<a href="index.php?id=' . $user['id'] . '">Modifier</a>';
-                echo ' | <a href="delete_user.php?id=' . $user['id'] . '">Supprimer</a>';
-            }
-            ?>
-          </div>
-         </div>
+        
         </div>
        </div>
 
