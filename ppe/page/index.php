@@ -5,11 +5,14 @@ session_start();
 
 include 'config.php';
 
-
+// Vérifiez si l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
     header("Location: connection.php");
     exit();
 }
+
+// Vérifiez si le nom de l'utilisateur est défini
+$user_name = isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_name']) : "Utilisateur";
 
 ?>
 

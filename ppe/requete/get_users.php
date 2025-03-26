@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 
-include 'config.php';
+include '../page/config.php';
 
 $stmt = $mysqlClient->query("SELECT * FROM utilisateur");
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
