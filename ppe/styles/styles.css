@@ -1,0 +1,771 @@
+
+/*button like*/
+.large-font{
+    font-size:xxx-large;
+  }
+  .top-20{
+    position:relative;
+    top:20vh;
+  }
+  ion-icon.active{
+    animation:like 0.5s 1;
+    fill:rgb(255, 255, 255);
+    stroke:none;
+  }
+  ion-icon{
+    fill:transparent;
+    stroke:rgb(255, 255, 255);
+    stroke-width:30;
+    transition:all 0.5s;
+  }
+  
+  
+  @-webkit-keyframes like {
+    0%   { transform: scale(1); }
+    90%   { transform: scale(1.2); }
+    100% { transform: scale(1.1); }
+  }
+/*Confirmer le like button*/
+.popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-content {
+    padding: 2rem;
+    border-radius: 16px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+  }
+  
+  .popup-text {
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .popup-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .btn-confirm, .btn-cancel {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-confirm {
+    background: linear-gradient(90deg, #8b5cf6, #6366f1);
+    color: white;
+  }
+  
+  .btn-confirm:hover {
+    background: linear-gradient(90deg, #7c3aed, #4f46e5);
+  }
+  
+  .btn-cancel {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+  }
+  
+  .btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+
+
+  
+
+
+
+body {
+    background: radial-gradient(circle at top right, #2d1b69 0%, #1a103f 50%, #0c0720 100%);
+    min-height: 100vh;
+}
+
+/* Styles pour la navbar latérale */
+.side-nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 280px;
+    background: rgba(13, 12, 20, 0.95);
+    backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    z-index: 50;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: width;
+    backface-visibility: hidden;
+}
+
+/* État rétracté de base */
+.side-nav.retracted {
+    width: 80px;
+}
+
+/* Masquer les textes en mode rétracté */
+.side-nav.retracted .logo-section span,
+.side-nav.retracted .nav-link span,
+.side-nav.retracted .mt-auto span,
+.side-nav.retracted .user-info {
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    white-space: nowrap;
+    transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+}
+
+/* État au survol en mode rétracté */
+.side-nav.retracted:hover {
+    width: 280px;
+    transform: translateZ(0);
+}
+
+.side-nav.retracted:hover .logo-section span,
+.side-nav.retracted:hover .nav-link span,
+.side-nav.retracted:hover .mt-auto span,
+.side-nav.retracted:hover .user-info {
+    opacity: 1;
+    visibility: visible;
+    width: auto;
+    transition: opacity 0.3s ease 0.1s, visibility 0s linear 0s;
+}
+
+/* Ajustement du contenu principal */
+main {
+    margin-left: 280px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: margin-left;
+    width: calc(100% - 280px);
+    backface-visibility: hidden;
+}
+
+main.retracted {
+    margin-left: 80px;
+    width: calc(100% - 80px);
+}
+
+/* Styles de la navbar */
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    will-change: transform;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transform: translateX(5px);
+}
+
+.nav-link.active {
+    background: linear-gradient(90deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
+    color: white;
+    border-left: 3px solid #8b5cf6;
+}
+
+.nav-link i {
+    font-size: 1.25rem;
+    min-width: 24px;
+}
+
+/* Ajustements pour le profil utilisateur */
+.side-nav.retracted .mt-auto {
+    align-items: center;
+    padding: 0.5rem;
+}
+
+.side-nav .logo-section {
+    padding: 0 1rem;
+    transition: all 0.3s ease;
+}
+
+.side-nav.retracted .logo-section span {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav-links span {
+    transition: opacity 0.2s ease;
+}
+
+.side-nav.retracted .nav-links span {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
+    will-change: transform;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transform: translateX(5px);
+}
+
+.nav-link.active {
+    background: linear-gradient(90deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
+    color: white;
+    border-left: 3px solid #8b5cf6;
+}
+
+.nav-link i {
+    font-size: 1.25rem;
+    min-width: 24px;
+}
+
+/* Ajuster le contenu principal pour la navbar latérale */
+main {
+    margin-left: 250px;
+    transition: margin-left 0.3s ease-in-out;
+    transition: margin-left 0.3s ease;
+    will-change: margin-left;
+    backface-visibility: hidden;
+}
+
+main.retracted {
+    margin-left: 80px;
+}
+
+.side-nav.retracted .mt-auto {
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.side-nav.retracted .user-info,
+.side-nav.retracted .mt-auto span,
+.side-nav.retracted .mt-auto .flex-col {
+    display: none;
+}
+
+.side-nav.retracted .mt-auto a {
+    padding: 0.5rem;
+    width: auto;
+}
+
+.side-nav.retracted .mt-auto .btn-disconnect {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+/* Navbar rétractable */
+.side-nav.retracted ~ main {
+    margin-left: 80px !important;
+}
+
+/* Animation des éléments de la navbar */
+.logo-section span,
+.nav-link span,
+.user-info {
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* Style hover pour la navbar rétractée */
+.side-nav.retracted:hover {
+    width: 280px !important;
+    transform: translateZ(0);
+}
+
+.side-nav.retracted:hover .logo-section span,
+.side-nav.retracted:hover .nav-link span,
+.side-nav.retracted:hover .user-info {
+    opacity: 1;
+    visibility: visible;
+}
+
+.side-nav.retracted:hover ~ main {
+    margin-left: 280px !important;
+}
+
+/* Styles des cartes et conteneurs */
+.glass-card {
+    background: rgba(17, 25, 40, 0.75);
+    backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.plan-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.plan-card:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+/* Styles du lecteur de musique */
+.music-player {
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, #ff1f71 0%, #ff758c 100%);
+}
+
+/* Animations */
+@keyframes shine {
+    0% { left: -100%; }
+    20% { left: 100%; }
+    100% { left: 100%; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.floating {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Styles pour les effets de survol et animations */
+.glow {
+    position: relative;
+}
+
+.glow::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(45deg, var(--start-color), var(--end-color));
+    filter: blur(15px);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.plan-card:hover .glow::after {
+    opacity: 0.5;
+}
+
+.price-tag {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    color: #ffffff;
+    font-weight: 800;
+}
+
+/* Styles pour le modal et les paiements */
+.modal-box {
+    background: rgba(13, 12, 20, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    width: 80vw;
+    max-width: 1000px;
+    max-height: 90vh;
+    height: auto;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+/* Cacher la scrollbar pour Webkit */
+.modal-box::-webkit-scrollbar {
+    display: none;
+}
+
+
+.payment-method {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.payment-method:hover {
+    transform: translateY(-2px);
+}
+
+.payment-method.selected {
+    border: none;
+    position: relative;
+    background: rgba(138, 43, 226, 0.1);
+}
+
+.payment-method.selected::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(45deg, #ff00ff, #00ffff);
+    z-index: -1;
+    animation: borderGlow 3s linear infinite;
+    border-radius: inherit;
+}
+
+
+
+
+/*ajouter des musiques playlist*/
+
+.results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 24px;
+        padding: 24px;
+    }
+
+
+
+/* Styles pour le lecteur */
+.first-page {
+    z-index: 5;
+}
+
+.cover-image {
+    width: 100%;
+    height: 280px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.music-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 360px;
+    width: 280px;
+}
+
+.music-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+}
+
+.default-cover {
+    background: linear-gradient(45deg, #2d1b69, #1a103f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.default-cover i {
+    font-size: 48px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    color: white;
+}
+
+.song-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.artist-name {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.progress-wrapper {
+    visibility: hidden;
+    opacity: 0;
+    width: 100%;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    transition: opacity 0.5s ease;
+}
+
+/* Media Queries */
+@media (min-width: 640px) {
+    .grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.side-nav .user-info .font-semibold {
+    background: linear-gradient(to right, #6366f1, #a855f7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Ajustement du conteneur du profil utilisateur pour la navbar rétractée */
+.side-nav.retracted .flex.items-center.gap-3 {
+    justify-content: center;
+}
+
+.side-nav .w-10.h-10.rounded-full {
+    min-width: 2.5rem;
+}
+
+.grid {
+    display: grid;
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.cover-image {
+    width: 100%;
+    height: 280px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.default-cover {
+    background: linear-gradient(45deg, #2d1b69, #1a103f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.default-cover i {
+    font-size: 48px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    color: white;
+}
+
+.song-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.artist-name {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.progress-wrapper {
+    visibility: hidden;
+    opacity: 0;
+    width: 100%;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    transition: opacity 0.5s ease;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #8b5cf6, #3b82f6);
+    transition: width 0.5s ease;
+}
+
+@media (min-width: 640px) {
+    .grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Styles pour le bouton favoris */
+.card-hover-elements {
+    transition: opacity 0.3s ease;
+}
+
+.favorite-btn i {
+    transition: color 0.3s ease;
+}
+
+.favorite-btn:hover i {
+    color: white !important;
+}
+
+.favorite-btn.active i {
+    color: white !important;
+}
+
+
+/*liste*/
+
+
+
+.track-list h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .track {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #2a2a2a;
+  }
+  
+  .track-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .track img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .track-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .track-title {
+    font-weight: bold;
+  }
+  
+  .track-artist {
+    font-size: 0.9em;
+    color: #b3b3b3;
+  }
+  
+  .track-duration {
+    color: #b3b3b3;
+    font-size: 0.9em;
+  }
+  
+
+
+  /* barre de recherche dans rechercher.php */
+  .search-wrapper {
+    background: rgba(17, 25, 40, 0.75);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.search-input {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    width: 100%;
+    color: white;
+    transition: all 0.3s ease;
+}
+.search-input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+}

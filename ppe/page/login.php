@@ -21,9 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-
     if ($user) {
-        if ($mdp === $user['mdp']) { // Comparaison directe sans hash
+        // Utiliser password_verify pour comparer le mot de passe saisi avec le mot de passe haché
+        if (password_verify($mdp, $user['mdp'])) {
             $_SESSION['id'] = $user['id'];
             $_SESSION['prenom'] = $user['prenom'] . " " . $user['nom']; // Stocke Prénom + Nom
             

@@ -1,0 +1,27 @@
+<?php
+session_start();
+include '../page/config.php';
+
+if (!isset($_SESSION['id'])) {
+    http_response_code(403);
+    echo "Non autorisé";
+    exit;
+}
+
+if (isset($_POST['id_musique'])) {
+    $userId = $_SESSION['id'];
+    $musiqueId = $_POST['id_musique'];
+
+    // Supprimer le favori correspondant
+    $stmt = $mysqlClient->prepare("DELETE FROM favoris WHERE id_utilisateur = :user AND id_musique = :musique");
+    $stmt->execute(['user' => $userId, 'musique' => $musiqueId]);
+
+    if ($stmt->rowCount() > 0) {
+        echo "Favori supprimé";
+    } else {
+        echo "Favori non trouvé";
+    }
+} else {
+    echo "ID musique manquant";
+}
+?>

@@ -1,0 +1,58 @@
+<?php
+session_start();
+include '../page/config.php';
+
+if (!isset($_SESSION['id'])) {
+    http_response_code(403);
+    echo "Non autorisé";
+    exit;
+}
+
+if (isset($_POST['id_musique'])) {
+    $userId = $_SESSION['id'];
+    $musiqueId = $_POST['id_musique'];
+
+
+    // Vérifie si déjà en favoris
+    $checkStmt = $mysqlClient->prepare("SELECT * FROM favoris WHERE id_utilisateur = :user AND id_musique = :musique");
+    $checkStmt->execute(['user' => $userId, 'musique' => $musiqueId]);
+
+    if ($checkStmt->rowCount() === 0) {
+        $stmt = $mysqlClient->prepare("INSERT INTO favoris (id_utilisateur, id_musique, date_ajout) VALUES (:user, :musique, NOW())");
+        $stmt->execute(['user' => $userId, 'musique' => $musiqueId]);
+        echo "Ajouté aux favoris";
+    } else {
+        echo "Déjà dans les favoris";
+    }
+} else {
+    echo "ID musique manquant";
+}
+?>
+
+<script>
+document.getElementById("likeBtnInNavbar").addEventListener("click", function () {
+    const button = this;
+    const musiqueId = button.getAttribute("data-id");
+
+    if (!musiqueId) {
+        console.error("ID musique manquant.");
+        return;
+    }
+
+    fetch("../requete_favoris/add_favoris.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: "id_musique=" + encodeURIComponent(musiqueId)
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data); // Affiche la réponse (pour debug)
+        alert(data);       // Affiche une alerte simple (ou utilise une notification stylée)
+    })
+    .catch(error => {
+        console.error("Erreur lors de l’ajout aux favoris :", error);
+    });
+});
+</script>

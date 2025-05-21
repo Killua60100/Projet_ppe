@@ -1,310 +1,328 @@
-/* Styles généraux */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
 body {
-  background-color: #f4f4f4;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
+  background: radial-gradient(circle at top right, #2d1b69 0%, #1a103f 50%, #0c0720 100%);
+  min-height: 100vh;
 }
 
-/* Header */
-header {
-  width: 100%;
-  background-color: #333;
-  padding: 15px 0;
-  text-align: center;
-}
-
-.header-container button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 18px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Ajout de transition sur le background et la transformation */
-}
-
-
-/* Conteneur principal */
-.body {
-  width: 90%;
-  max-width: 800px;
-  margin-top: 20px;
-}
-
-/* Cartes */
-.project-card {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-
-.project-card h3 {
-  margin-bottom: 15px;
-  color: #333;
-}
-
-/* Formulaire */
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-form label {
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-form input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-button {
-  margin-top: 15px;
-  padding: 10px;
-  font-size: 18px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease; /* Transition sur la couleur de fond et du texte */
-}
-
-button:hover {
-  background-color: #218838;
-  color: #fff; /* Assure que la couleur du texte est bien blanche au survol */
-}
-
-/* Liste des utilisateurs */
-#users-list p {
-  background: #e9ecef;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 5px;
-}
-
-#users-list a {
-  text-decoration: none;
-  color: #007bff;
-  font-weight: bold;
-  margin-right: 10px;
-}
-
-#users-list a:hover {
-  text-decoration: underline;
-}
-
-
-
-
-/* Styles spécifiques à la page de connexion */
-.connexion-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Styles pour la navbar latérale */
+.side-nav {
+  position: fixed;
+  left: 0;
+  top: 0;
   height: 100vh;
-}
-
-.connexion-title {
-  font-size: 24px;
-  color: #333;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.connexion-form {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  text-align: center;
-}
-
-.connexion-input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.connexion-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.connexion-button:hover {
-  background-color: #0056b3;
-}
-
-.back-link {
-  display: block;
-  margin-top: 15px;
-  text-decoration: none;
-  color: #007bff;
-  font-size: 14px;
-  text-align: center;
-}
-
-.back-link:hover {
-  text-decoration: underline;
-}
-
-.error-message {
-  color: red;
-  font-size: 14px;
-  text-align: center;
-}
-
-
-
-
-
-
-
-/* Styles généraux */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-body {
-  background-color: #f4f4f4;
+  width: 250px;
+  background: rgba(13, 12, 20, 0.95);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
+  gap: 2rem;
+  z-index: 50;
+  transition: all 0.3s ease-in-out;
+}
+
+.side-nav.retracted {
+  width: 80px;
+}
+
+.side-nav .logo-section {
+  padding: 0 1rem;
+  transition: all 0.3s ease;
+}
+
+.side-nav.retracted .logo-section span {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-links span {
+  transition: opacity 0.2s ease;
+}
+
+.side-nav.retracted .nav-links span {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+.nav-link {
+  display: flex;
   align-items: center;
-  padding: 20px;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
 }
 
-/* Header */
-header {
-  width: 100%;
-  background-color: #333;
-  padding: 15px 0;
-  text-align: center;
-}
-
-.header-container button {
-  background-color: #007bff;
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
   color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 18px;
-  cursor: pointer;
-  border-radius: 5px;
+  transform: translateX(5px);
 }
 
-.header-container button:hover {
-  background-color: #0056b3;
-  transition: background-color 0.3s ease;
+.nav-link.active {
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
+  color: white;
+  border-left: 3px solid #8b5cf6;
 }
 
-/* Conteneur principal */
-.body {
-  width: 90%;
-  max-width: 800px;
-  margin-top: 20px;
+.nav-link i {
+  font-size: 1.25rem;
+  min-width: 24px;
 }
 
-/* Cartes */
-.project-card {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+/* Ajuster le contenu principal pour la navbar latérale */
+main {
+  margin-left: 250px;
+  transition: margin-left 0.3s ease-in-out;
 }
 
-.project-card h3 {
-  margin-bottom: 15px;
-  color: #333;
+main.retracted {
+  margin-left: 80px;
 }
 
-/* Formulaire */
-form {
+.side-nav.retracted .mt-auto {
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.side-nav.retracted .user-info,
+.side-nav.retracted .mt-auto span,
+.side-nav.retracted .mt-auto .flex-col {
+  display: none;
+}
+
+.side-nav.retracted .mt-auto a {
+  padding: 0.5rem;
+  width: auto;
+}
+
+.side-nav.retracted .mt-auto .btn-disconnect {
+  width: 40px;
+  height: 40px;
+  padding: 0;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 
-form label {
-  font-weight: bold;
-  margin-top: 10px;
+/* Styles des cartes et conteneurs */
+.glass-card {
+  background: rgba(17, 25, 40, 0.75);
+  backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  transition: all 0.3s ease;
 }
 
-form input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  margin-bottom: 10px;
+.glass-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
-button {
-  margin-top: 15px;
-  padding: 10px;
-  font-size: 18px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 5px;
+.plan-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.plan-card:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* Styles du lecteur de musique */
+.music-player {
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, #ff1f71 0%, #ff758c 100%);
+}
+
+/* Animations */
+@keyframes shine {
+  0% { left: -100%; }
+  20% { left: 100%; }
+  100% { left: 100%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Styles pour les effets de survol et animations */
+.glow {
+  position: relative;
+}
+
+.glow::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, var(--start-color), var(--end-color));
+  filter: blur(15px);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.plan-card:hover .glow::after {
+  opacity: 0.5;
+}
+
+.price-tag {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+  color: #ffffff;
+  font-weight: 800;
+}
+
+/* Styles pour le modal et les paiements */
+.modal-box {
+  background: rgba(13, 12, 20, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  max-height: calc(100vh - 5em);
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.modal-box::-webkit-scrollbar {
+  display: none;
+}
+
+.payment-method {
+  transition: all 0.3s ease;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
 }
 
-button:hover {
-  background-color: #218838;
+.payment-method:hover {
+  transform: translateY(-2px);
 }
 
-/* Liste des utilisateurs */
-#users-list p {
-  background: #e9ecef;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 5px;
+.payment-method.selected {
+  border: none;
+  position: relative;
+  background: rgba(138, 43, 226, 0.1);
 }
 
-#users-list a {
-  text-decoration: none;
-  color: #007bff;
-  font-weight: bold;
-  margin-right: 10px;
+.payment-method.selected::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, #ff00ff, #00ffff);
+  z-index: -1;
+  animation: borderGlow 3s linear infinite;
+  border-radius: inherit;
 }
 
-#users-list a:hover {
-  text-decoration: underline;
+/* Styles pour le lecteur */
+.cover-image {
+  width: 100%;
+  height: 280px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Transition pour les boutons */
-button:hover, .header-container button:hover {
-  transition: background-color 0.3s ease;
+.music-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 360px;
+}
+
+.music-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+}
+
+.default-cover {
+  background: linear-gradient(45deg, #2d1b69, #1a103f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.default-cover i {
+  font-size: 48px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  color: white;
+}
+
+.song-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.artist-name {
+  font-size: 1rem;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.progress-wrapper {
+  visibility: hidden;
+  opacity: 0;
+  width: 100%;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: opacity 0.5s ease;
+}
+
+/* Media Queries */
+@media (min-width: 640px) {
+  .grid-cols-2 {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-cols-3 {
+      grid-template-columns: repeat(3, 1fr);
+  }
 }

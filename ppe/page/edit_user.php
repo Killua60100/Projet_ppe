@@ -6,8 +6,7 @@ include 'config.php';
 if (isset($_GET['id'])) {
     $id = (int)$_GET['id'];
 
-    // Récupérer les données de la personne
-    $stmt = $mysqlClient->prepare("SELECT * FROM personnes WHERE id = :id");
+    $stmt = $mysqlClient->prepare("SELECT * FROM utilisateur WHERE id = :id");
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -15,7 +14,7 @@ if (isset($_GET['id'])) {
     if ($user) {
         ?>
         <h1>Modifier la personne</h1>
-        <form action="../requete/update_user.php" method="POST">
+        <form action="../requete_users/update_user.php" method="POST">
             <input type="hidden" name="id" value="<?php echo htmlspecialchars($user['id']); ?>">
 
             <label for="nom">Nom :</label>
